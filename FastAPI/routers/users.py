@@ -18,11 +18,11 @@ async def users():
     return users_list
 # Path
 @router.get("/{id}")
-async def user(id:int):
+async def user1(id:int):
     return search_user(id)
 
 @router.post("/")
-async def user(user: User):
+async def user2(user: User):
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code=404, detail=f"El Usuario {user.name} con el ID: {user.id} ya existe.") 
     else:
@@ -30,12 +30,11 @@ async def user(user: User):
         raise HTTPException(status_code=201, detail=f"El usuario {user.name} con el id: {user.id} ha siado agregado")        
     
 @router.put("/")
-async def user(user: User):
-
+async def user3(user: User):
     for index, saved_user in enumerate(users_list):
         if saved_user.id == user.id:
             users_list[index] = user
-            raise HTTPException(status_code=404, detail=f"Usuario {user.name} con el id: {user.id} actualizado")                   
+            raise HTTPException(status_code=201, detail=f"Usuario {user.name} con el id: {user.id} actualizado")                   
     else:
         raise HTTPException(status_code=404, detail=f"Usuario {user.name} con el id: {user.id} no encontrado")        
      
